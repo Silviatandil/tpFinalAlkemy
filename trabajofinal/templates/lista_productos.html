@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/lista_productos.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h3>esta es mi lista de productos</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>nombre</th>
+                <th>precio</th>
+                <th>stock_actual</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{producto.id}}</td> 
+                <td>{{producto.nombre}}</td>  
+                <td>{{producto.precio}}</td> 
+                <td>{{producto.stock_actual}}</td> 
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button><a href="provedores/mostrar/">IR A LA LISTA DE PROVEEDORES</a></button>
+ 
+</body>
+</html>
