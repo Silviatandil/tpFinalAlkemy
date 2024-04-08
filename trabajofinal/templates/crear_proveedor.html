@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Proveedor</title>
+</head>
+<body>
+    <h1>Agregar Proveedor</h1>
+    <form id="agregar_proveedor_form" action="{% url 'crear_proveedor' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Aquí renderizamos el formulario como párrafos -->
+        <input type="submit" value="Agregar Proveedor">
+    </form>
+</body>
+</html>

@@ -1,33 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Producto, Proveedor
+from .forms import ProveedorForm, ProductoForm  # Importa el formulario correspondiente
 
-def agregar_producto(request,nombre, precio, stock_actual):
-    producto_nuevo = Producto.objects.create(
-        nombre = nombre,
-        precio =precio,
-        stock_actual = stock_actual
-    )
-    return render(request, 'nuevo_producto.html', {'producto_nuevo': producto_nuevo})
+def crearProducto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('mostrar_productos')  # Redirige a la lista de proveedores después de crear uno nuevo
+    else:
+        form = ProductoForm()
+    return render(request, 'crear_producto.html', {'form': form})
 
-def listar_productos(request):
+def mostrar_productos(request):
     productos = Producto.objects.all()
-    return render(request, 'lista_productos.html', {'productos': productos})
+    return render(request, 'lista_producto.html', {'productos': productos})
 
-def agregar_proveedor(request,nombre, apellido, dni):
-    provedor_nuevo = Proveedor.objects.create(
-        nombre = nombre,
-        apellido = apellido,
-        dni = dni
-    )
-    return render(request, 'provedor_nuevo.html', {'provedor_nuevo': provedor_nuevo})
-
-def mostrar_producto(request):
-   productos = Producto.objects.all()
-   return render(request, 'lista_productos.html', {'productos': productos})
-
-def mostrar_provedores(request):
-    provedores = Proveedor.objects.all()
-    return render(request,'lista_provedores.html', {'provedores': provedores})
+def filtrar_productos_stock(request):
+    productoEncontrado = Producto.objects.filter(StockActual=2)
+    print(productoEncontrado)
+    return render(request, 'productoEncontrado.html', {'productoEncontrado': productoEncontrado})
 
 def update_producto_id(request, id, nombre,precio,stock_actual):
     productoActualizar = Producto.objects.get(id = id)
@@ -36,30 +28,60 @@ def update_producto_id(request, id, nombre,precio,stock_actual):
     productoActualizar.stock_actual = stock_actual
     productoActualizar.save()
     productos = Producto.objects.all()
-    return render(request, 'lista_productos.html', {'productos': productos})
+    return render(request, 'lista_producto.html', {'productos': productos})
 
-def update_provedor_id(request, id, nombre, apellido, dni):
+def borrarProducto_id(request, id):
+    productoBorrar = Producto.objects.get(id = id)
+    productoBorrar.delete()
+    productos = Producto.objects.all()
+    return render(request, 'lista_producto.html', {'productos': productos})
+
+def borrarProducto(request):
+    productos = Producto.objects.all()
+    productos.delete()
+    return render(request, 'lista_producto.html', {'productos': productos})
+
+def agregar_proveedor_formulario(request):
+    return render(request, 'agregar_proveedor_formulario.html')
+
+def crearProveedor(request):
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('mostrar_proveedor')  # Redirige a la lista de proveedores después de crear uno nuevo
+    else:
+        form = ProveedorForm()
+    return render(request, 'crear_proveedor.html', {'form': form})
+
+def mostrar_proveedor(request):
+    proveedores = Proveedor.objects.all()
+    return render(request, 'lista_proveedores.html', {'proveedores': proveedores} )
+
+def filtrar_proveedor_dni(request):
+    proveedorEncontrado = Proveedor.objects.filter(dni = 34562239)
+    return render(request, 'proveedorEncontrado.html', {'proveedorEncontrado': proveedorEncontrado}) 
+
+
+
+def update_proveedor_id(request, id, nombre, apellido, dni):
     provedorActualizar = Proveedor.objects.get(id = id)
     provedorActualizar.nombre = nombre
     provedorActualizar.apellido = apellido
     provedorActualizar.dni = dni
     provedorActualizar.save()
-    provedor = Proveedor.objects.all()
+    proveedores = Proveedor.objects.all()
+    return render(request, 'lista_proveedores.html', {'proveedores': proveedores} ) 
 
-    return render(request, 'lista_provedores.html', {'provedor': provedor})
 
-def borrar_producto_id(request, id):
-    productoBorrar = Producto.objects.get(id = id)
-    productoBorrar.delete()
-    producto = Producto.objects.all()
-    return render(request, 'lista_productos.html', {'productos': producto})
+def borrarProveedor_id(request, id):
+    proveedorBorrar = Proveedor.objects.get(id = id)
+    proveedorBorrar.delete()
+    proveedores = Proveedor.objects.all()
+    return render(request, 'lista_proveedores.html', {'proveedores': proveedores} ) 
 
-def borrar_provedor_id(request, id):
-    provedorBorrar = Proveedor.objects.get(id = id)
-    provedorBorrar.delete()
-    provedor = Proveedor.objects.all()
-    return render(request, 'lista_provedores.html', {'provedor': provedor})
 
-def listar_proveedor(request):
-       provedores = Proveedor.objects.all()
-       return render(request, 'lista_provedores.html', {'provedores': provedores})
+def borrarProveedor(request):
+    proveedores = Proveedor.objects.all()
+    proveedores.delete()
+    return render(request, 'lista_proveedores.html', {'proveedores': proveedores} ) 
