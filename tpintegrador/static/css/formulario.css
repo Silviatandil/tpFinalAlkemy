@@ -1,0 +1,58 @@
+#agregar_producto_form{
+    background-color: rgba(154, 247, 216);
+    border-style:groove;
+    border-color: rgb(11, 11, 11,0.9);
+    border-width: 2px;
+    border-radius: 5px;
+    height:240px;
+    width: 600px; 
+    margin: 0 auto;
+}
+#agregar_producto_form p{
+    text-align: left;
+    margin-left: 25%;
+    color:black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#agregar_producto_form input{
+    border-radius: 25px;
+    width: 150px;
+
+      
+}
+.agregar{
+    display: block;
+    margin: auto;
+    margin-top: 40px; 
+    
+}
+h1{
+    text-align: center;
+    font-style:inherit ;
+    text-decoration:underline rgba(11, 11, 11, 0.7);
+}
+
+#agregar_proveedor_form{
+    background-color: rgba(154, 247, 216);
+    border-style:groove;
+    border-color: rgb(11, 11, 11,0.9);
+    border-width: 2px;
+    border-radius: 5px;
+    height:220px;
+    text-align: center;
+    width: 600px; 
+    margin: 0 auto;
+
+}
+#agregar_proveedor_form p{
+     text-align: left;
+    margin-left: 25%;
+    color:black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+#agregar_proveedor_form input{
+    border-radius: 25px;
+    width: 150px;
+
+}

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Producto, Proveedor
 from .forms import ProveedorForm, ProductoForm  # Importa el formulario correspondiente
 
@@ -21,14 +21,18 @@ def filtrar_productos_stock(request):
     print(productoEncontrado)
     return render(request, 'productoEncontrado.html', {'productoEncontrado': productoEncontrado})
 
-def update_producto_id(request, id, nombre,precio,stock_actual):
-    productoActualizar = Producto.objects.get(id = id)
-    productoActualizar.nombre = nombre
-    productoActualizar.precio = precio
-    productoActualizar.stock_actual = stock_actual
-    productoActualizar.save()
-    productos = Producto.objects.all()
-    return render(request, 'lista_producto.html', {'productos': productos})
+def update_producto_id(request, id):
+    producto = get_object_or_404(Producto, id=id)  # Obtiene el proveedor por su ID o muestra un error 404 si no existe
+    
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('mostrar_productos')  # Redirige a la lista de proveedores después de actualizar uno
+    else:
+        form = ProductoForm(instance=producto)
+    
+    return render(request, 'update_producto.html', {'form': form, 'producto': producto})
 
 def borrarProducto_id(request, id):
     productoBorrar = Producto.objects.get(id = id)
@@ -64,14 +68,18 @@ def filtrar_proveedor_dni(request):
 
 
 
-def update_proveedor_id(request, id, nombre, apellido, dni):
-    provedorActualizar = Proveedor.objects.get(id = id)
-    provedorActualizar.nombre = nombre
-    provedorActualizar.apellido = apellido
-    provedorActualizar.dni = dni
-    provedorActualizar.save()
-    proveedores = Proveedor.objects.all()
-    return render(request, 'lista_proveedores.html', {'proveedores': proveedores} ) 
+def update_proveedor_id(request, id):
+    proveedor = get_object_or_404(Proveedor, id=id)  # Obtiene el proveedor por su ID o muestra un error 404 si no existe
+    
+    if request.method == 'POST':
+        form = ProveedorForm(request.POST, instance=proveedor)
+        if form.is_valid():
+            form.save()
+            return redirect('mostrar_proveedor')  # Redirige a la lista de proveedores después de actualizar uno
+    else:
+        form = ProveedorForm(instance=proveedor)
+    
+    return render(request, 'update_proveedor.html', {'form': form, 'proveedor': proveedor})
 
 
 def borrarProveedor_id(request, id):

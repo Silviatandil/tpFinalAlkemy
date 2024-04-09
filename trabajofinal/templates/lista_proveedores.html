@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/lista_provedores.css' %}">
+    <link rel="stylesheet"  href="{% static 'css/provedores.css' %}">
     <title>Lista de Proveedores</title>
 </head>
 <body>
-    <h3>Esta es mi lista de proveedores:</h3>
+    <h1>Lista de proveedores:</h1>
     <table>
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>DNI</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -23,12 +24,24 @@
                 <td>{{ proveedor.nombre }}</td>
                 <td>{{ proveedor.apellido }}</td>
                 <td>{{ proveedor.dni }}</td>
+                <td class="accion">
+                    <form method="post" action="{% url 'update_proveedor' proveedor.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="botonEditar">Editar</button>
+                    </form>
+                    <form method="post" action="{% url 'borrarProveedor' proveedor.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="botonEliminar">Eliminar</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <button><a href="{% url 'crear_proveedor' %}">Crear nuevo Proveedor</a></button>
-    <button><a href="{% url 'mostrar_productos' %}">Volver a la lista de productos</a></button>
+    <div class="botones">
+        <button class="boton_crear"><a href="{% url 'crear_proveedor' %}">Nuevo Proveedor</a></button>
+    <button class="boton_producto"><a href="{% url 'mostrar_productos' %}">Lista de Productos</a></button>
+    </div>
     
 </body>
 </html>

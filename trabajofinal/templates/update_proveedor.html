@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Proveedor</title>
+    
+</head>
+<body>
+    <h1>Actualizar Proveedor</h1>
+    <form method="post" class="formulario">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Esto representará todos los campos del formulario como párrafos -->
+        <button type="submit" class="mi_boton">Guardar cambios</button>
+    </form>
+</body>
+</html

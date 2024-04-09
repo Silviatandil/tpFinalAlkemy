@@ -1,0 +1,34 @@
+h1{
+    text-align: center;
+    font-style:inherit ;
+    text-decoration:underline rgba(11, 11, 11, 0.7);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black; /* Agregar borde negro */
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid black;
+}
+th {
+    background-color: #f2f2f2;
+    border-right: 1px solid black; /* Agregar borde derecho para th */
+}
+tr:last-child td {
+    border-bottom: none; /* Remover el borde inferior del último td */
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:hover {
+    background-color: #ddd;
+}
+
+#crear{
+    padding-left: 50px;
+}
