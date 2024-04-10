@@ -4,44 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="{% static 'css/provedores.css' %}">
+    <!-- Enlaces a los archivos CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Lista de Proveedores</title>
+    <style>
+        /* Estilos personalizados */
+        .tabla-container {
+            margin-top: 20px;
+        }
+
+        .tabla-container table {
+            border: 2px solid #28a745;
+        }
+
+        .tabla-container thead th {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .boton_crear {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+
+        .boton_crear:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .boton_producto {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: white;
+        }
+
+        .boton_producto:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+
+        .accion {
+            display: flex;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de proveedores:</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>DNI</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for proveedor in proveedores %}
-            <tr>
-                <td>{{ proveedor.nombre }}</td>
-                <td>{{ proveedor.apellido }}</td>
-                <td>{{ proveedor.dni }}</td>
-                <td class="accion">
-                    <form method="post" action="{% url 'update_proveedor' proveedor.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="botonEditar">Editar</button>
-                    </form>
-                    <form method="post" action="{% url 'borrarProveedor' proveedor.id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="botonEliminar">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="botones">
-        <button class="boton_crear"><a href="{% url 'crear_proveedor' %}">Nuevo Proveedor</a></button>
-    <button class="boton_producto"><a href="{% url 'mostrar_productos' %}">Lista de Productos</a></button>
+    <div class="container tabla-container">
+        <h1 class="text-center">Lista de proveedores:</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>DNI</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proveedor in proveedores %}
+                <tr>
+                    <td>{{ proveedor.nombre }}</td>
+                    <td>{{ proveedor.apellido }}</td>
+                    <td>{{ proveedor.dni }}</td>
+                    <td class="accion">
+                        <form method="post" action="{% url 'update_proveedor' proveedor.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Editar</button>
+                        </form>
+                        <form method="post" action="{% url 'borrarProveedor' proveedor.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="botones">
+            <button class="btn btn-primary boton_crear"><a href="{% url 'crear_proveedor' %}" style="color: white;">Nuevo Proveedor</a></button>
+            <button class="btn btn-secondary boton_producto"><a href="{% url 'mostrar_productos' %}" style="color: white;">Lista de Productos</a></button>
+        </div>
     </div>
-    
 </body>
 </html>
